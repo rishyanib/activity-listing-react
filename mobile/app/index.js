@@ -1,34 +1,44 @@
-import { useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { useState, useMemo } from "react";
+import { FlatList, StyleSheet, View} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import CourseHeader from "../components/CourseHeader";
 import Filters from "../components/Filters";
 import ActivityCard from "../components/ActivityCard";
-
 import { courses } from "../constants/data/courses";
 import { activities } from "../constants/data/activities";
 
 export default function ActivityListScreen() {
-  // ✅ DEFINE selectedCourse
-  const [selectedCourse] = useState(
-    courses && courses.length > 0 ? courses[0] : null
-  );
+  const [selectedCourse] = useState(courses?.[0] ?? null);
+  const [selectedFilter, setSelectedFilter] = useState("ALL");
+
+  const filteredActivities = useMemo(() => {
+    if (selectedFilter === "ALL") return activities;
+
+    return activities.filter(
+      item => item.type === selectedFilter
+    );
+  }, [selectedFilter]);
+
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={activities}
-        keyExtractor={(item) => item.id}
+        data={filteredActivities}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <ActivityCard activity={item} />}
         contentContainerStyle={styles.listContent}
         ListHeaderComponent={
-          <>
+          <View>
             <CourseHeader course={selectedCourse} />
-            <Filters />
-          </>
+            <Filters
+              selected={selectedFilter}
+              onChange={setSelectedFilter}
+            />
+          </View>
         }
       />
+
     </SafeAreaView>
   );
 }

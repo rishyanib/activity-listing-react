@@ -8,7 +8,7 @@ export default function ActivityCard({ activity }) {
     <View style={styles.card}>
       {/* Top Row */}
       <View style={styles.topRow}>
-        <Image source={{ uri: activity.thumbnail }} style={styles.thumbnail} />
+        <Image source={{ uri: activity.image }} style={styles.thumbnail} />
 
         <View style={styles.mainInfo}>
           <Text style={styles.title} numberOfLines={2}>
@@ -20,10 +20,13 @@ export default function ActivityCard({ activity }) {
           </Text>
         </View>
 
-        <View style={styles.rightInfo}>
-          <Text style={styles.status}>{activity.status}</Text>
-          <Text style={styles.scheduled}>{activity.scheduledAt}</Text>
-        </View>
+       <View style={styles.rightInfo}>
+         <Text style={styles.status}>
+           {activity.status.replace(/_/g, " ").toUpperCase()}
+         </Text>
+         <Text style={styles.scheduled}>{activity.scheduledAt}</Text>
+       </View>
+
       </View>
 
       {/* Action */}
@@ -52,12 +55,12 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 
-  thumbnail: {
-    width: 56,
-    height: 56,
-    borderRadius: 8,
-  },
-
+ thumbnail: {
+   width: 100,
+   height: 100,
+   borderRadius: 8,
+   backgroundColor: "#eee", // temporary to see bounds
+ },
   mainInfo: {
     flex: 1,
     marginLeft: 12,
@@ -76,6 +79,7 @@ const styles = StyleSheet.create({
 
   rightInfo: {
     alignItems: "flex-end",
+    marginLeft: 12,
   },
 
   status: {
