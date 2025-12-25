@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { activities } from "./data/activities";
+import { course } from "./data/course";
 import ActivityCard from "./components/ActivityCard";
 import Filters from "./components/Filters";
+import CourseHeader from "./components/CourseHeader";
 import "./App.css";
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Learning Activities</h1>
+      <h1>My Learning</h1>
+      <CourseHeader course={course} />
 
       <Filters filters={filters} setFilters={setFilters} />
 

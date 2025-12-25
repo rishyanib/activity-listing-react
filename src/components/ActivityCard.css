@@ -101,3 +101,23 @@
   background: #ecfeff;
   color: #155e75;
 }
+
+@media (max-width: 768px) {
+  .activity-card {
+    grid-template-columns: 1fr;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 160px;
+  }
+
+  .activity-action {
+    align-items: flex-start;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+
